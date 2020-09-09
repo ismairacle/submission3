@@ -74,7 +74,6 @@ class DetailActivity : AppCompatActivity() {
                 setStatusFavorite(statusFavorite)
             } else {
                 statusFavorite = false
-                favoriteHelper.deleteByUsername(user.username)
                 Toast.makeText(this, "Data dihapus", Toast.LENGTH_SHORT).show()
                 setStatusFavorite(statusFavorite)
 
