@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Submission 3</string>
+    <string name="user_name">Nama</string>
+    <string name="username">Username</string>
+    <string name="repository">Repositori</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="company">Perusahaan</string>
+    <string name="location">Lokasi</string>
+    <string name="_0">0</string>
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="search_hint">Masukan Kata</string>
+
+</resources>
