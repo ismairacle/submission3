@@ -44,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
             isAlarmActive.isChecked = sharedPreferences.getBoolean(ALARM, false)
             if (isAlarmActive.isChecked) {
 
-                val repeatTime = "21:41"
+                val repeatTime = "01:42"
                 val repeatMessage = "It's time to find your favorite Github user on Our Apps"
                 context?.let {
                     alarmReceiver.setRepeatingAlarm(

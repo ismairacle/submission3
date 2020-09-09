@@ -73,6 +73,8 @@ class DetailActivity : AppCompatActivity() {
                 insertFavoriteToDatabase(user)
                 setStatusFavorite(statusFavorite)
             } else {
+                val id = user.username
+                favoriteHelper.deleteById(id)
                 statusFavorite = false
                 Toast.makeText(this, "Data dihapus", Toast.LENGTH_SHORT).show()
                 setStatusFavorite(statusFavorite)

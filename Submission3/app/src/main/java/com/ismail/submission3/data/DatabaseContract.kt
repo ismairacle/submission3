@@ -9,7 +9,6 @@ class DatabaseContract {
             const val TABLE_NAME = "favorite_table"
             const val AVATAR = "avatar_url"
             const val USERNAME = "login"
-            const val FAVORITE = "favorite"
         }
     }
 }

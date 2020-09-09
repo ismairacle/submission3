@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -19,28 +20,31 @@ import java.util.*
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
-        const val TYPE_REPEATING = "RepeatingAlarm"
+        const val CHANNEL_ID = "ismail"
+        const val CHANNEL_NAME = "github_user_channel"
         const val EXTRA_MESSAGE = "message"
         private const val ID_REPEATING = 101
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         val message = intent.getStringExtra(EXTRA_MESSAGE) as String
-        val notifId = ID_REPEATING
         showToast(context, message)
-        showAlarmNotification(context, message, notifId)
+        showAlarmNotification(context, message)
     }
 
     private fun showToast(context: Context, message: String?) {
         Toast.makeText(context, "$message", Toast.LENGTH_LONG).show()
     }
 
-    private fun showAlarmNotification(context: Context, message: String, notifId: Int) {
-        val CHANNEL_ID = "Channel_1"
-        val CHANNEL_NAME = "AlarmManager channel"
+    private fun showAlarmNotification(context: Context, message: String) {
+
+        val intent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_alarm_white_24dp)
             .setContentTitle("contoh judul")
             .setContentText(message)
@@ -57,7 +61,7 @@ class AlarmReceiver : BroadcastReceiver() {
             notificationManagerCompat.createNotificationChannel(channel)
         }
         val notification = builder.build()
-        notificationManagerCompat.notify(notifId, notification)
+        notificationManagerCompat.notify(ID_REPEATING, notification)
     }
 
 
