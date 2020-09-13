@@ -8,13 +8,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import java.text.ParseException
-import java.text.SimpleDateFormat
+import com.ismail.submission3.view.activity.MainActivity
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {

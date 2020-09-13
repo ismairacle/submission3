@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Favorite App</string>
+    <string name="user_name">Name</string>
+    <string name="username">Username</string>
+    <string name="repository">Repository</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
+    <string name="_0">0</string>
+    <string name="change_language">Change Language</string>
+    <string name="search_hint">Masukan Kata</string>
+    <string name="search" translatable="false">Search</string>
+    <string name="favorite" translatable="false">Favorite</string>
+    <string name="insert_city" translatable="false">Masukan Kota</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
+
+    <string name="alarm" translatable="false">alarm</string>
+    <string name="daily_reminder" translatable="false">Reminder at 9:00 AM</string>
+</resources>
