@@ -1,11 +1,11 @@
 package com.ismail.submission3.view.activity
 
 import android.database.ContentObserver
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismail.submission3.R
 import com.ismail.submission3.adapter.FavoriteAdapter
@@ -34,6 +34,9 @@ class FavoriteActivity : AppCompatActivity() {
 
         showFavoriteRecyclerList()
 
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        favoriteHelper.open()
+
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
@@ -46,7 +49,6 @@ class FavoriteActivity : AppCompatActivity() {
         contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
 
         if (savedInstanceState == null) {
-            // proses ambil data
             loadFavoritesAsync()
         } else {
             val list = savedInstanceState.getParcelableArrayList<Favorite>(EXTRA_STATE)

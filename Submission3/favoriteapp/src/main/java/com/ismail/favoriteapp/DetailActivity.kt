@@ -1,18 +1,14 @@
 package com.ismail.favoriteapp
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ismail.favoriteapp.adapter.SectionsPagerAdapter
-import com.ismail.favoriteapp.data.DatabaseContract
 import com.ismail.favoriteapp.data.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.ismail.favoriteapp.entity.Favorite
 import com.ismail.favoriteapp.entity.User
@@ -27,13 +23,12 @@ import org.json.JSONObject
 class DetailActivity : AppCompatActivity() {
 
     private var favorite: Favorite? = null
-    private var position: Int = 0
+
     private lateinit var uriWithUsername: Uri
 
     companion object {
         const val EXTRA_USER = "extra_user"
-        const val EXTRA_FAVORITE = "extra_favorite"
-        const val EXTRA_POSITION = "extra_position"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,72 +57,14 @@ class DetailActivity : AppCompatActivity() {
             cursor.close()
         }
 
-        var statusFavorite = false
-        if (cursor != null) {
-            statusFavorite = !statusFavorite
-            setStatusFavorite(statusFavorite)
-        } else {
-            setStatusFavorite(statusFavorite)
-        }
 
-        fab_favorite.setOnClickListener {
-
-            if (!statusFavorite) {
-                statusFavorite = true
-                insertFavoriteToDatabase(user)
-                setStatusFavorite(statusFavorite)
-            } else {
-                contentResolver.delete(uriWithUsername, null, null)
-                statusFavorite = false
-                Toast.makeText(this, "Data dihapus", Toast.LENGTH_SHORT).show()
-                setStatusFavorite(statusFavorite)
-
-            }
-
-
-        }
 
 
     }
 
 
-    private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) {
-            fab_favorite.setImageDrawable(
-                ContextCompat.getDrawable(
-                    this,
-                    R.drawable.ic_favorite_whitep
-                )
-            )
-        } else {
-            fab_favorite.setImageDrawable(
-                ContextCompat.getDrawable(
-                    this,
-                    R.drawable.ic_favorite_border_white
-                )
-            )
-        }
-    }
 
-    private fun insertFavoriteToDatabase(user: User) {
-        val username = user.username
-        val avatar = user.avatar
 
-        favorite?.username = username
-        favorite?.avatar = avatar
-
-        val intent = Intent()
-        intent.putExtra(EXTRA_FAVORITE, favorite)
-        intent.putExtra(EXTRA_POSITION, position)
-
-        val values = ContentValues()
-        values.put(DatabaseContract.FavoriteColumns.USERNAME, username)
-        values.put(DatabaseContract.FavoriteColumns.AVATAR, avatar)
-
-        contentResolver.insert(CONTENT_URI, values)
-        Toast.makeText(this, "Satu item berhasil disimpan", Toast.LENGTH_SHORT).show()
-        finish()
-    }
 
 
     private fun getUserData(username: String) {

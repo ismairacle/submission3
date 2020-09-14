@@ -1,4 +1,4 @@
-package com.ismail.favoriteapp.adapter
+package com.ismail.submission3.adapter
 
 
 import android.content.Intent
@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ismail.favoriteapp.DetailActivity
 import com.ismail.favoriteapp.R
 import com.ismail.favoriteapp.entity.Favorite
 import com.ismail.favoriteapp.entity.User
-import com.ismail.submission3.DetailActivity
-import com.ismail.submission3.R
-import com.ismail.submission3.entity.Favorite
-import com.ismail.submission3.entity.User
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
-class FavoriteAdapter : RecyclerView.Adapter<FavoriteAppAdapter.FavoriteViewHolder>() {
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     var listFavorite = ArrayList<Favorite>()
         set(listFavorite) {
@@ -45,6 +42,8 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAppAdapter.FavoriteViewHold
         return FavoriteViewHolder(view)
     }
 
+
+    override fun getItemCount(): Int = this.listFavorite.size
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         holder.bind(listFavorite[position])
 
@@ -64,8 +63,5 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAppAdapter.FavoriteViewHold
             intent.putExtra(DetailActivity.EXTRA_USER, user)
             it.context.startActivity(intent)
         }
-
     }
-
-    override fun getItemCount(): Int = this.listFavorite.size
 }

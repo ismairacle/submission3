@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ismail.submission3.view.activity.DetailActivity
 import com.ismail.submission3.R
 import com.ismail.submission3.entity.User
+import com.ismail.submission3.view.activity.DetailActivity
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
 class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
@@ -59,7 +59,6 @@ class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adap
                 val intent = Intent(it.context, DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_USER, user)
                 it.context.startActivity(intent)
-
         }
     }
 

@@ -1,5 +1,6 @@
 package com.ismail.submission3.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ismail.submission3.R
 import com.ismail.submission3.entity.Following
+import com.ismail.submission3.entity.User
+import com.ismail.submission3.view.activity.DetailActivity
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
 class ListFollowingAdapter(private val dataFollowing: ArrayList<Following>) : RecyclerView.Adapter<ListFollowingAdapter.ListViewHolder>() {
@@ -42,6 +45,23 @@ class ListFollowingAdapter(private val dataFollowing: ArrayList<Following>) : Re
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(dataFollowing[position])
+
+        val data = dataFollowing[position]
+        holder.itemView.setOnClickListener {
+            val user = User(
+                data.avatar,
+                "",
+                data.username,
+                "",
+                "",
+                "",
+                "",
+                ""
+            )
+            val intent = Intent(it.context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_USER, user)
+            it.context.startActivity(intent)
+        }
 
     }
 

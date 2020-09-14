@@ -8,7 +8,6 @@ import android.provider.BaseColumns._ID
 import com.ismail.submission3.data.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
 import com.ismail.submission3.data.DatabaseContract.FavoriteColumns.Companion.USERNAME
 import java.sql.SQLException
-import kotlin.jvm.Throws
 
 class FavoriteHelper(context: Context) {
 
@@ -70,8 +69,8 @@ class FavoriteHelper(context: Context) {
         return database.update(DATABASE_TABLE, values, "$_ID = ?", arrayOf(id))
     }
 
-    fun deleteById(id: String): Int {
-        return database.delete(DATABASE_TABLE, "$USERNAME = '$id'", null)
+    fun deleteByUsername(username: String): Int {
+        return database.delete(DATABASE_TABLE, "$USERNAME = '$username'", null)
     }
 
 }

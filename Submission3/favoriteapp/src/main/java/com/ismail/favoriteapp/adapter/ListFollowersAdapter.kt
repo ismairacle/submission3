@@ -1,12 +1,15 @@
 package com.ismail.favoriteapp.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ismail.favoriteapp.DetailActivity
 import com.ismail.favoriteapp.R
 import com.ismail.favoriteapp.entity.Followers
+import com.ismail.favoriteapp.entity.User
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
 class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) : RecyclerView.Adapter<ListFollowersAdapter.ListViewHolder>() {
@@ -40,6 +43,23 @@ class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) : Re
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(dataFollowers[position])
+
+        val data = dataFollowers[position]
+        holder.itemView.setOnClickListener {
+            val user = User(
+                data.avatar,
+                "",
+                data.username,
+                "",
+                "",
+                "",
+                "",
+                ""
+            )
+            val intent = Intent(it.context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_USER, user)
+            it.context.startActivity(intent)
+        }
 
     }
 

@@ -3,6 +3,7 @@ package com.ismail.submission3.view.activity
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,10 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.ismail.submission3.R
 import com.ismail.submission3.adapter.SectionsPagerAdapter
 import com.ismail.submission3.data.DatabaseContract
-import com.ismail.submission3.data.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
+import com.ismail.submission3.data.FavoriteHelper
 import com.ismail.submission3.entity.Favorite
 import com.ismail.submission3.entity.User
-import com.ismail.submission3.helper.MappingHelper
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -31,12 +31,14 @@ class DetailActivity : AppCompatActivity() {
     private var favorite: Favorite? = null
     private var position: Int = 0
     private lateinit var uriWithUsername: Uri
+    private lateinit var favoriteHelper: FavoriteHelper
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
         const val EXTRA_USER = "extra_user"
         const val EXTRA_FAVORITE = "extra_favorite"
         const val EXTRA_POSITION = "extra_position"
+        const val RESULT_ADD = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,30 +60,25 @@ class DetailActivity : AppCompatActivity() {
 
 
 
-        uriWithUsername = Uri.parse(CONTENT_URI.toString() + "/" + favorite?.username)
-        val cursor = contentResolver.query(uriWithUsername, null, null, null, null)
-        if (cursor != null) {
-            favorite = MappingHelper.mapCursorToObject(cursor)
-            cursor.close()
-        }
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        favoriteHelper.open()
 
         var statusFavorite = false
-        if (cursor != null) {
+        setStatusFavorite(statusFavorite)
+        val cursor: Cursor = favoriteHelper.queryByUsername(user.username)
+        if (cursor.moveToNext()) {
             statusFavorite = !statusFavorite
-            setStatusFavorite(statusFavorite)
-        } else {
             setStatusFavorite(statusFavorite)
         }
 
         fab_favorite.setOnClickListener {
-
             if (!statusFavorite) {
                 statusFavorite = true
                 insertFavoriteToDatabase(user)
                 setStatusFavorite(statusFavorite)
             } else {
-                contentResolver.delete(uriWithUsername, null, null)
                 statusFavorite = false
+                favoriteHelper.deleteByUsername(user.username)
                 Toast.makeText(this, "Data dihapus", Toast.LENGTH_SHORT).show()
                 setStatusFavorite(statusFavorite)
 
@@ -90,7 +87,11 @@ class DetailActivity : AppCompatActivity() {
 
         }
 
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        favoriteHelper.close()
     }
 
 
@@ -127,9 +128,15 @@ class DetailActivity : AppCompatActivity() {
         values.put(DatabaseContract.FavoriteColumns.USERNAME, username)
         values.put(DatabaseContract.FavoriteColumns.AVATAR, avatar)
 
-        contentResolver.insert(CONTENT_URI, values)
-        Toast.makeText(this, "Satu item berhasil disimpan", Toast.LENGTH_SHORT).show()
-        finish()
+        val result = favoriteHelper.insert(values)
+
+        if (result > 0) {
+            setResult(RESULT_ADD, intent)
+            finish()
+            Toast.makeText(this@DetailActivity, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this@DetailActivity, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -187,6 +194,7 @@ class DetailActivity : AppCompatActivity() {
                     404 -> "$statusCode : Not Found"
                     else -> "$statusCode : ${error?.message}"
                 }
+
                 Toast.makeText(this@DetailActivity, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
@@ -199,6 +207,5 @@ class DetailActivity : AppCompatActivity() {
             detail_progressbar.visibility = View.GONE
         }
     }
-
 
 }
