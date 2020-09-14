@@ -15,7 +15,7 @@ class FavoriteProvider : ContentProvider() {
 
     companion object {
         private const val FAVORITE = 1
-        private const val FAVORITE_ID = 2
+        private const val FAVORITE_USERNAME = 2
         private val sUriMatcher = UriMatcher(UriMatcher.NO_MATCH)
         private lateinit var favoriteHelper: FavoriteHelper
 
@@ -24,7 +24,7 @@ class FavoriteProvider : ContentProvider() {
 
             sUriMatcher.addURI(AUTHORITY,
                 "$TABLE_NAME/#",
-                FAVORITE_ID)
+                FAVORITE_USERNAME)
         }
     }
 
@@ -34,10 +34,11 @@ class FavoriteProvider : ContentProvider() {
         return true
     }
 
+
     override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         return when(sUriMatcher.match(uri)) {
             FAVORITE -> favoriteHelper.queryAll()
-            FAVORITE_ID -> favoriteHelper.queryByUsername(uri.lastPathSegment.toString())
+            FAVORITE_USERNAME -> favoriteHelper.queryByUsername(uri.lastPathSegment.toString())
             else -> null
         }
     }
@@ -52,12 +53,12 @@ class FavoriteProvider : ContentProvider() {
             else -> 0
         }
 
-            context?.contentResolver?.notifyChange(CONTENT_URI, null)
-                return Uri.parse("$CONTENT_URI/$added")
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+        return Uri.parse("$CONTENT_URI/$added")
     }
 
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
-        val updated: Int = when (FAVORITE_ID) {
+        val updated: Int = when (FAVORITE_USERNAME) {
             sUriMatcher.match(uri) -> favoriteHelper.update(uri.lastPathSegment.toString(),values)
             else -> 0
         }
@@ -66,7 +67,7 @@ class FavoriteProvider : ContentProvider() {
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        val deleted: Int = when (FAVORITE_ID) {
+        val deleted: Int = when (FAVORITE_USERNAME) {
             sUriMatcher.match(uri) -> favoriteHelper.deleteByUsername(uri.lastPathSegment.toString())
             else -> 0
         }

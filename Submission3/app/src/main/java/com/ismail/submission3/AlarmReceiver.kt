@@ -12,7 +12,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.ismail.submission3.view.activity.MainActivity
+import com.ismail.submission3.view.activity.HomeActivity
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -36,7 +36,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private fun showAlarmNotification(context: Context, message: String) {
 
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(context, HomeActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

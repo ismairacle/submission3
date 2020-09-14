@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,13 +26,11 @@ import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
 
+    private lateinit var favoriteHelper: FavoriteHelper
     private var favorite: Favorite? = null
     private var position: Int = 0
-    private lateinit var uriWithUsername: Uri
-    private lateinit var favoriteHelper: FavoriteHelper
 
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
         const val EXTRA_USER = "extra_user"
         const val EXTRA_FAVORITE = "extra_favorite"
         const val EXTRA_POSITION = "extra_position"
@@ -45,12 +41,15 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val actionbar = supportActionBar
-        actionbar?.title = ""
+
 
 
         val user = intent.getParcelableExtra(EXTRA_USER) as User
         getUserData(user.username)
+
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        favoriteHelper.open()
+
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         sectionsPagerAdapter.username = user.username
@@ -60,8 +59,7 @@ class DetailActivity : AppCompatActivity() {
 
 
 
-        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
-        favoriteHelper.open()
+
 
         var statusFavorite = false
         setStatusFavorite(statusFavorite)
@@ -86,6 +84,7 @@ class DetailActivity : AppCompatActivity() {
 
 
         }
+
 
     }
 
@@ -157,7 +156,6 @@ class DetailActivity : AppCompatActivity() {
             ) {
 
                 val result = String(responseBody)
-                Log.d(TAG, result)
 
                 try {
                     val item = JSONObject(result)

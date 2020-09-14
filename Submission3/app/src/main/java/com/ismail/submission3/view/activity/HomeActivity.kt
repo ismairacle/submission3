@@ -1,11 +1,11 @@
 package com.ismail.submission3.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +16,7 @@ import com.ismail.submission3.entity.User
 import com.ismail.submission3.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
 
     private lateinit var viewModel: MainViewModel
@@ -40,16 +40,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.option_menu, menu)
-
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
+        val customSearchView = findViewById<SearchView>(R.id.search_bar)
         val context = applicationContext
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        customSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isNotEmpty()) {
                     viewModel.getSearchUser(context, query)
@@ -62,6 +56,12 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
         return true
     }
 

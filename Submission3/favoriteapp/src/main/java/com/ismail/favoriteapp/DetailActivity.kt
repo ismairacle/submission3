@@ -1,7 +1,6 @@
 package com.ismail.favoriteapp
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ismail.favoriteapp.adapter.SectionsPagerAdapter
-import com.ismail.favoriteapp.data.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
-import com.ismail.favoriteapp.entity.Favorite
 import com.ismail.favoriteapp.entity.User
-import com.ismail.favoriteapp.helper.MappingHelper
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -22,9 +18,8 @@ import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
 
-    private var favorite: Favorite? = null
 
-    private lateinit var uriWithUsername: Uri
+
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -34,9 +29,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val actionbar = supportActionBar
-        actionbar?.title = ""
+        supportActionBar?.hide()
 
 
         val user = intent.getParcelableExtra(EXTRA_USER) as User
@@ -47,15 +40,6 @@ class DetailActivity : AppCompatActivity() {
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
         supportActionBar?.elevation = 0f
-
-
-
-        uriWithUsername = Uri.parse(CONTENT_URI.toString() + "/" + favorite?.username)
-        val cursor = contentResolver.query(uriWithUsername, null, null, null, null)
-        if (cursor != null) {
-            favorite = MappingHelper.mapCursorToObject(cursor)
-            cursor.close()
-        }
 
 
 

@@ -32,10 +32,11 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite)
 
-        showFavoriteRecyclerList()
-
         favoriteHelper = FavoriteHelper.getInstance(applicationContext)
         favoriteHelper.open()
+
+        showFavoriteRecyclerList()
+
 
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
@@ -47,6 +48,7 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
         contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+
 
         if (savedInstanceState == null) {
             loadFavoritesAsync()
@@ -83,6 +85,7 @@ class FavoriteActivity : AppCompatActivity() {
             val deferredFavorite = async(Dispatchers.IO) {
                 val cursor = contentResolver?.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
+
             }
 //            progressbar.visibility = View.INVISIBLE
             val favorites  = deferredFavorite.await()
