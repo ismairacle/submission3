@@ -1,7 +1,6 @@
 package com.ismail.favoriteapp
 
 import android.database.ContentObserver
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -21,10 +20,6 @@ import kotlinx.coroutines.launch
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var favoriteAppAdapter: FavoriteAppAdapter
-    private var favorite: Favorite? = null
-
-    private lateinit var uriWithUsername: Uri
-
 
     companion object {
         private const val EXTRA_STATE = "EXTRA_STATE"
@@ -44,14 +39,7 @@ class FavoriteActivity : AppCompatActivity() {
                 loadFavoritesAsync()
             }
         }
-
         contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
-        uriWithUsername = Uri.parse(CONTENT_URI.toString() + "/" + favorite?.username)
-        val cursor = contentResolver.query(uriWithUsername, null, null, null, null)
-        if (cursor != null) {
-            favorite = MappingHelper.mapCursorToObject(cursor)
-            cursor.close()
-        }
 
         if (savedInstanceState == null) {
             // proses ambil data

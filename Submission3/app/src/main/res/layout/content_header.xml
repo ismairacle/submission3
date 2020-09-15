@@ -77,9 +77,9 @@
         android:text="@string/following"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/tv_detail_repository"
-        app:layout_constraintStart_toStartOf="@+id/tv_detail_repository"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_repository" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_detail_following"
+        app:layout_constraintStart_toStartOf="@+id/tv_detail_following"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_following" />
 
     <TextView
         android:id="@+id/tv_detail_company"
@@ -105,7 +105,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_company" />
 
     <TextView
-        android:id="@+id/tv_detail_following"
+        android:id="@+id/tv_detail_repository"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_0"
@@ -114,7 +114,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tv_detail_repository_text"
         app:layout_constraintStart_toStartOf="@+id/tv_detail_repository_text"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_repository" />
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_following" />
 
     <TextView
         android:id="@+id/tv_detail_followers"
@@ -126,11 +126,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tv_detail_followers_text"
         app:layout_constraintStart_toStartOf="@+id/tv_detail_followers_text"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_repository" />
+        app:layout_constraintTop_toTopOf="@+id/tv_detail_following" />
 
 
     <TextView
-        android:id="@+id/tv_detail_repository"
+        android:id="@+id/tv_detail_following"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
