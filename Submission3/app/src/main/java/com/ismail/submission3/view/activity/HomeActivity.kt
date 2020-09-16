@@ -72,10 +72,6 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(favIntent)
                 true
             }
-//            R.id.change_app_language -> {
-//                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-//                startActivity(mIntent)
-//                super.onOptionsItemSelected(item)
             R.id.setting_menu -> {
                 val settingIntent = Intent(this, SettingsActivity::class.java)
                 startActivity(settingIntent)

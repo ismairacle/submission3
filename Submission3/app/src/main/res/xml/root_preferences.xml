@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:iconSpaceReserved="false">
 
+    <Preference
+        android:id="@+id/language_preference"
+        android:key="@string/key_language"
+        android:title="@string/change_language"/>
+
     <SwitchPreference
         android:defaultValue="false"
-        android:key="@string/alarm"
+        android:key="@string/key_alarm"
         android:title="@string/daily_reminder"
-        app:iconSpaceReserved="false" />
+        app:iconSpaceReserved="false"
+        android:icon="@drawable/ic_alarm_white_24dp"/>
 
 </PreferenceScreen>

@@ -44,11 +44,13 @@ class AlarmReceiver : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_alarm_white_24dp)
-            .setContentTitle("contoh judul")
+            .setContentTitle(context.getString(R.string.app_name))
             .setContentText(message)
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
             .setSound(alarmSound)
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(CHANNEL_ID,
                 CHANNEL_NAME,

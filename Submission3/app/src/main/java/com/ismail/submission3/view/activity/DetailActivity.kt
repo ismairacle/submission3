@@ -40,8 +40,6 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
 
 
         val user = intent.getParcelableExtra(EXTRA_USER) as User
@@ -56,9 +54,6 @@ class DetailActivity : AppCompatActivity() {
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
         supportActionBar?.elevation = 0f
-
-
-
 
 
         var statusFavorite = false
