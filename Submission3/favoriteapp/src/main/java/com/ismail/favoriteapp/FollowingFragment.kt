@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismail.favoriteapp.adapter.ListFollowingAdapter
@@ -56,7 +55,7 @@ class FollowingFragment : Fragment() {
 
         showRecyclerList()
 
-        followingViewModel.getFollowingList().observe(viewLifecycleOwner, Observer { listFollowing ->
+        followingViewModel.getFollowingList().observe(viewLifecycleOwner, { listFollowing ->
             if (listFollowing != null) {
                 adapter.setData(listFollowing)
                 showLoading(false)

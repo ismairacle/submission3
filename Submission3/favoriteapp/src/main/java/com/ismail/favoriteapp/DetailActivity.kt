@@ -19,8 +19,6 @@ import org.json.JSONObject
 class DetailActivity : AppCompatActivity() {
 
 
-
-
     companion object {
         const val EXTRA_USER = "extra_user"
 
@@ -42,13 +40,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
 
-
-
     }
-
-
-
-
 
 
     private fun getUserData(username: String) {
@@ -73,7 +65,11 @@ class DetailActivity : AppCompatActivity() {
                     val item = JSONObject(result)
                     Glide.with(this@DetailActivity)
                         .load(item.getString("avatar_url"))
-                        .apply(RequestOptions())
+                        .apply(
+                            RequestOptions()
+                                .placeholder(R.drawable.person)
+                                .error(R.drawable.broken_image)
+                        )
                         .into(img_detail_avatar)
                     tv_detail_username.text = "@${item.getString("login")}"
                     tv_detail_name.text = item.getString("name")

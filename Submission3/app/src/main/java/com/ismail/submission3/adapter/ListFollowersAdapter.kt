@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ismail.submission3.R
 import com.ismail.submission3.entity.Followers
 import com.ismail.submission3.entity.User
 import com.ismail.submission3.view.activity.DetailActivity
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
-class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) : RecyclerView.Adapter<ListFollowersAdapter.ListViewHolder>() {
+class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) :
+    RecyclerView.Adapter<ListFollowersAdapter.ListViewHolder>() {
 
     fun setData(items: ArrayList<Followers>) {
         dataFollowers.clear()
@@ -23,9 +25,13 @@ class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) : Re
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: Followers) {
-            with(itemView){
+            with(itemView) {
                 Glide.with(itemView.context)
                     .load(user.avatar)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.person)
+                            .error(R.drawable.broken_image)                    )
                     .into(img_item_avatar)
                 tv_item_username.text = user.username
 
@@ -35,7 +41,8 @@ class ListFollowersAdapter(private val dataFollowers: ArrayList<Followers>) : Re
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
+        val view =
+            LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
         return ListViewHolder(view)
     }
 

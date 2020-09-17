@@ -94,7 +94,7 @@ class FavoriteActivity : AppCompatActivity() {
                 favoriteAdapter.listFavorite = favorites
             } else {
                 favoriteAdapter.listFavorite = ArrayList()
-                Toast.makeText(this@FavoriteActivity, "No data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@FavoriteActivity, getString(R.string.no_data), Toast.LENGTH_SHORT).show()
             }
         }
     }

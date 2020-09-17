@@ -37,10 +37,10 @@ class FollowingViewModel : ViewModel() {
                     val items = JSONArray(result)
                     for (i in 0 until items.length()) {
                         val item = items.getJSONObject(i)
-                        val avatar_url = item.getString("avatar_url")
+                        val avatarUrl = item.getString("avatar_url")
                         val username = item.getString("login")
                         val following = Following(
-                            avatar_url,
+                            avatarUrl,
                             "",
                             username,
                             "",

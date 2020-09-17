@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Submission 3</string>
+    <string name="app_name">GitHub User App</string>
     <string name="user_name">Nama</string>
     <string name="username">Username</string>
     <string name="repository">Repositori</string>
@@ -11,5 +11,20 @@
     <string name="_0">0</string>
     <string name="change_language">Ganti Bahasa</string>
     <string name="search_hint">Masukan Kata</string>
+
+    <string name="search" >Cari</string>
+    <string name="favorite" >Favorit</string>
+
+    <string name="settings">Pengaturan</string>
+
+    <string name="daily_reminder" >Ingatkan di 9:00 AM</string>
+    <string name="repeat_message" >Saatnya untuk mencari user Github Favorit kamu</string>
+    <string name="stop_reminder">Pengingat dimatikan</string>
+    <string name="active_reminder">Pengingat diaktifkan</string>
+    <string name="success_added">Sukses menambahkan ke favorit</string>
+    <string name="failed_added">Gagal menambahkan ke favorit</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="delete">User dihapus dari favorit</string>
+    <string name="not_found">User tidak ditemukan</string>
 
 </resources>

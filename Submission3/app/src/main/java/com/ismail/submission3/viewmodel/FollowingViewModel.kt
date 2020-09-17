@@ -6,13 +6,12 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ismail.submission3.view.fragment.FollowingFragment
 import com.ismail.submission3.entity.Following
+import com.ismail.submission3.view.fragment.FollowingFragment
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
-import java.lang.Exception
 
 class FollowingViewModel : ViewModel() {
     private val mutableListFollowing = MutableLiveData<ArrayList<Following>>()
@@ -39,10 +38,10 @@ class FollowingViewModel : ViewModel() {
                     val items = JSONArray(result)
                     for (i in 0 until items.length()) {
                         val item = items.getJSONObject(i)
-                        val avatar_url = item.getString("avatar_url")
+                        val avatar = item.getString("avatar_url")
                         val username = item.getString("login")
                         val following = Following(
-                            avatar_url,
+                            avatar,
                             "",
                             username,
                             "",

@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ismail.submission3.R
+import com.ismail.submission3.R.drawable.person
 import com.ismail.submission3.entity.User
 import com.ismail.submission3.view.activity.DetailActivity
 import kotlinx.android.synthetic.main.item_row_user.view.*
 
-class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
+class ListUserAdapter(private val dataUser: ArrayList<User>) :
+    RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
 
     fun setData(items: ArrayList<User>) {
         dataUser.clear()
@@ -21,10 +24,15 @@ class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adap
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
-            with(itemView){
+            with(itemView) {
                 Glide.with(itemView.context)
                     .load(user.avatar)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(person)
+                            .error(R.drawable.broken_image))
                     .into(img_item_avatar)
+
                 tv_item_username.text = user.username
 
             }
@@ -33,7 +41,8 @@ class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adap
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
+        val view =
+            LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
         return ListViewHolder(view)
     }
 
@@ -45,20 +54,20 @@ class ListUserAdapter(private val dataUser: ArrayList<User>) : RecyclerView.Adap
         holder.bind(dataUser[position])
 
         val data = dataUser[position]
-            holder.itemView.setOnClickListener {
-                val user = User (
-                    data.avatar,
-                    data.name,
-                    data.username,
-                    data.company,
-                    data.location,
-                    data.repository,
-                    data.following,
-                    data.followers
-                )
-                val intent = Intent(it.context, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_USER, user)
-                it.context.startActivity(intent)
+        holder.itemView.setOnClickListener {
+            val user = User(
+                data.avatar,
+                data.name,
+                data.username,
+                data.company,
+                data.location,
+                data.repository,
+                data.following,
+                data.followers
+            )
+            val intent = Intent(it.context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_USER, user)
+            it.context.startActivity(intent)
         }
     }
 

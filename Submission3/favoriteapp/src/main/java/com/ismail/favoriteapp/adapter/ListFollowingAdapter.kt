@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ismail.favoriteapp.DetailActivity
 import com.ismail.favoriteapp.R
 import com.ismail.favoriteapp.entity.Following
@@ -26,6 +27,11 @@ class ListFollowingAdapter(private val dataFollowing: ArrayList<Following>) : Re
             with(itemView){
                 Glide.with(itemView.context)
                     .load(user.avatar)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.person)
+                            .error(R.drawable.broken_image)
+                    )
                     .into(img_item_avatar)
                 tv_item_username.text = user.username
 

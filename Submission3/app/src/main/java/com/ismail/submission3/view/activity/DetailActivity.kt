@@ -72,7 +72,7 @@ class DetailActivity : AppCompatActivity() {
             } else {
                 statusFavorite = false
                 favoriteHelper.deleteByUsername(user.username)
-                Toast.makeText(this, "Data dihapus", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.delete), Toast.LENGTH_SHORT).show()
                 setStatusFavorite(statusFavorite)
 
             }
@@ -126,10 +126,9 @@ class DetailActivity : AppCompatActivity() {
 
         if (result > 0) {
             setResult(RESULT_ADD, intent)
-            finish()
-            Toast.makeText(this@DetailActivity, "Success added ${user.username} to favorite ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailActivity, getString(R.string.success_added), Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this@DetailActivity, "Fail added ${user.username} to favorite", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailActivity, getString(R.string.failed_added), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -156,7 +155,9 @@ class DetailActivity : AppCompatActivity() {
                     val item = JSONObject(result)
                     Glide.with(this@DetailActivity)
                         .load(item.getString("avatar_url"))
-                        .apply(RequestOptions())
+                        .apply(RequestOptions()
+                        .placeholder(R.drawable.person)
+                        .error(R.drawable.broken_image))
                         .into(img_detail_avatar)
                     tv_detail_username.text = "@${item.getString("login")}"
                     tv_detail_name.text = item.getString("name")

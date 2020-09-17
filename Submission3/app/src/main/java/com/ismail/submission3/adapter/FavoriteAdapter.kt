@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ismail.submission3.R
 import com.ismail.submission3.entity.Favorite
 import com.ismail.submission3.entity.User
@@ -26,9 +27,14 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(favorite: Favorite) {
-            with(itemView){
+            with(itemView) {
                 Glide.with(itemView.context)
                     .load(favorite.avatar)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.person)
+                            .error(R.drawable.broken_image)
+                    )
                     .into(img_item_avatar)
                 tv_item_username.text = favorite.username
 
@@ -38,7 +44,8 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
         return FavoriteViewHolder(view)
     }
 
