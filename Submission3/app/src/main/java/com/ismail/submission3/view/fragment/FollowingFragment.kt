@@ -1,23 +1,22 @@
 package com.ismail.submission3.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismail.submission3.R
-import com.ismail.submission3.entity.Following
 import com.ismail.submission3.adapter.ListFollowingAdapter
+import com.ismail.submission3.entity.Following
 import com.ismail.submission3.viewmodel.FollowingViewModel
 import kotlinx.android.synthetic.main.fragment_following.*
 
 class FollowingFragment : Fragment() {
 
     companion object {
-        private val ARG_USERNAME = "username"
+        private const val ARG_USERNAME = "username"
 
         fun newInstance(username: String?) : FollowingFragment {
             val fragment = FollowingFragment()
@@ -58,7 +57,7 @@ class FollowingFragment : Fragment() {
 
         showRecyclerList()
 
-        followingViewModel.getFollowingList().observe(viewLifecycleOwner, Observer { listFollowing ->
+        followingViewModel.getFollowingList().observe(viewLifecycleOwner, { listFollowing ->
             if (listFollowing != null) {
                 adapter.setData(listFollowing)
                 showLoading(false)

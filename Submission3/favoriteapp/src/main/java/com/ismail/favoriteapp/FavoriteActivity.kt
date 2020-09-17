@@ -4,6 +4,7 @@ import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,19 +71,28 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun loadFavoritesAsync() {
         GlobalScope.launch(Dispatchers.Main) {
-//            progressbar.visibility = View.VISIBLE
+            showLoading(true)
             val deferredFavorite = async(Dispatchers.IO) {
                 val cursor = contentResolver?.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
-//            progressbar.visibility = View.INVISIBLE
+
+            showLoading(false)
             val favorites  = deferredFavorite.await()
             if (favorites.size > 0) {
                 favoriteAppAdapter.listFavorite = favorites
             } else {
                 favoriteAppAdapter.listFavorite = ArrayList()
-                Toast.makeText(this@FavoriteActivity, "Tidak ada data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@FavoriteActivity, "No data", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            favorite_progressBar.visibility = View.VISIBLE
+        } else {
+            favorite_progressBar.visibility = View.GONE
         }
     }
 }

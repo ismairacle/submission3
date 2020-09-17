@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismail.submission3.R
@@ -33,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
         showLoading(false)
 
-        viewModel.getUser().observe(this, Observer { User ->
+        viewModel.getUser().observe(this, { User ->
             if (User != null) {
                 adapter.setData(User)
                 showLoading(false)

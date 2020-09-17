@@ -6,6 +6,7 @@
     <Preference
         android:id="@+id/language_preference"
         android:key="@string/key_language"
+        android:icon="@drawable/ic_language_black"
         android:title="@string/change_language"/>
 
     <SwitchPreference
@@ -13,6 +14,6 @@
         android:key="@string/key_alarm"
         android:title="@string/daily_reminder"
         app:iconSpaceReserved="false"
-        android:icon="@drawable/ic_alarm_white_24dp"/>
+        android:icon="@drawable/ic_alarm_black"/>
 
 </PreferenceScreen>

@@ -1,8 +1,9 @@
 package com.ismail.submission3.view.fragment
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Toast
+import android.provider.Settings
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
@@ -56,12 +57,10 @@ class SettingsFragment : PreferenceFragmentCompat(),
             isAlarmActive.isChecked = sharedPreferences.getBoolean(ALARM, false)
 
             if (isAlarmActive.isChecked) {
-                val repeatTime = "01:42"
-                val repeatMessage = "It's time to find your favorite GitHub user on Our Apps"
+                val repeatMessage = getString(R.string.repeat_message)
                 context?.let {
                     alarmReceiver.setRepeatingAlarm(
-                        it,
-                        repeatTime, repeatMessage)
+                        it, repeatMessage)
                 }
             } else {
                 context?.let { alarmReceiver.stopDailyReminder(it) }
@@ -69,10 +68,14 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
         }
 
-        if (key == LANGUAGE) {
-            Toast.makeText(context, "test", Toast.LENGTH_SHORT).show()
-        }
+    }
 
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        return if (preference.key == LANGUAGE) {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            true
+        } else false
     }
 
 }

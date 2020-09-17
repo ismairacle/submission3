@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismail.submission3.R
-import com.ismail.submission3.entity.Followers
 import com.ismail.submission3.adapter.ListFollowersAdapter
+import com.ismail.submission3.entity.Followers
 import com.ismail.submission3.viewmodel.FollowersViewModel
 import kotlinx.android.synthetic.main.fragment_followers.*
 
@@ -55,7 +54,7 @@ class FollowersFragment : Fragment() {
         showLoading(false)
 
 
-        followersViewModel.getFollowingList().observe(viewLifecycleOwner, Observer { listFollowers ->
+        followersViewModel.getFollowingList().observe(viewLifecycleOwner, { listFollowers ->
             if (listFollowers != null) {
                 adapter.setData(listFollowers)
             }

@@ -18,4 +18,5 @@
     <string name="key_alarm" translatable="false">alarm</string>
     <string name="daily_reminder" translatable="false">Reminder at 9:00 AM</string>
     <string name="key_language" translatable="false">language</string>
+    <string name="repeat_message" translatable="false">It\'s time to find your favorite GitHub user on Our Apps</string>
 </resources>

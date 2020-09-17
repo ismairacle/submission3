@@ -127,9 +127,9 @@ class DetailActivity : AppCompatActivity() {
         if (result > 0) {
             setResult(RESULT_ADD, intent)
             finish()
-            Toast.makeText(this@DetailActivity, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailActivity, "Success added ${user.username} to favorite ", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this@DetailActivity, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailActivity, "Fail added ${user.username} to favorite", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -193,7 +193,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    fun showLoading(state: Boolean) {
+    private fun showLoading(state: Boolean) {
         if (state) {
             detail_progressbar.visibility = View.VISIBLE
         } else {
